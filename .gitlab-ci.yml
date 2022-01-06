@@ -1,6 +1,6 @@
 stages:
-  - build-stage
-  - test-stage
+  - build
+  - test
 
 image: "rust:1.57.0"
 
@@ -10,25 +10,25 @@ before_script:
   - apt-get update -yqq
   - apt-get install -yqq --no-install-recommends build-essential
 
-toolchain-versions-job:
-  stage: build-stage
+toolchain_versions_job:
+  stage: build
   script:
   - rustc --version && cargo --version  # Print version info for debugging
 
-build-job:
-  stage: build-stage
+build_job:
+  stage: build
   script:
   - cargo build --workspace --verbose
 
-test-job:
-  stage: test-stage
+test_job:
+  stage: test
   dependencies:
-    - build-job
+    - build_job
   script:
     - cargo test --workspace --verbose
 
 sast:
-  stage: test-stage
+  stage: test
 
 include:
   - template: Security/SAST.gitlab-ci.yml
