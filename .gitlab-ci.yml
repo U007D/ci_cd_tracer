@@ -1,5 +1,4 @@
 stages:
-  - toolchain_versions
   - build
   - test
 
@@ -12,14 +11,17 @@ before_script:
   - apt-get install -yqq --no-install-recommends build-essential
 
 toolchain_versions:
+  stage: build
   script:
   - rustc --version && cargo --version  # Print version info for debugging
 
 build:
+  stage: build
   script:
   - cargo build --workspace --verbose
 
 test:
+  stage: test
   script:
     - cargo test --workspace --verbose
 
