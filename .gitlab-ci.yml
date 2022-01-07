@@ -21,7 +21,7 @@ build_job:
   - cargo build --workspace --verbose
 
 test_job:
-  stage: test
+  stage: build
   dependencies:
     - build_job
   script:
