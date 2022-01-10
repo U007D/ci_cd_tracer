@@ -15,7 +15,7 @@ jobs:
       - name: build
         run: |
           pwd
-          ls -alR /home
+          ls -alR /home/runner/work/
           cargo build
         
       - name: test
