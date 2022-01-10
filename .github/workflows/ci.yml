@@ -13,6 +13,7 @@ jobs:
     steps: 
       - name: build
         run: |
+          ls -al /
           cargo build
         
       - name: test
