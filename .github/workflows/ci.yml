@@ -13,7 +13,7 @@ jobs:
     steps: 
       - name: build
         run: |
-          ls -al /
+          ls -alr /home
           cargo build
         
       - name: test
