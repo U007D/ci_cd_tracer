@@ -1,6 +1,6 @@
 use std::{
+    fmt::{Display, Formatter, Result as IoResult},
     io::Error as IoError,
-    fmt::{Display, Formatter, Result as IoResult}
 };
 use thiserror::Error;
 

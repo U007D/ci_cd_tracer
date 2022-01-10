@@ -1,6 +1,5 @@
 stages:
-  - build
-  - test
+  - hello_world
 
 image: "rust:1.57.0"
 
@@ -10,25 +9,44 @@ before_script:
   - apt-get update -yqq
   - apt-get install -yqq --no-install-recommends build-essential
 
-toolchain_versions_job:
-  stage: build
+report_toolchain_versions:
+  stage: hello_world
   script:
   - rustc --version && cargo --version  # Print version info for debugging
 
-build_job:
-  stage: build
+cargo_fmt:
+  stage: hello_world
   script:
-  - cargo build --workspace --verbose
+    - cargo fmt --release --workspace --verbose
 
-test_job:
-  stage: build
-  dependencies:
-    - build_job
+cargo_check:
+  stage: hello_world
   script:
-    - cargo test --workspace --verbose
+    - cargo check --release --workspace --verbose
+
+cargo_clippy:
+  stage: hello_world
+  dependencies:
+    - cargo_check
+  script:
+    - cargo clippy --release --workspace --verbose
+
+cargo_build:
+  stage: hello_world
+  dependencies:
+    - cargo_clippy
+  script:
+    - cargo build --release --workspace --verbose
+
+cargo_test:
+  stage: hello_world
+  dependencies:
+    - cargo_build
+  script:
+    - cargo test --release --workspace --verbose
 
 sast:
-  stage: test
+  stage: hello_world
 
 include:
   - template: Security/SAST.gitlab-ci.yml
