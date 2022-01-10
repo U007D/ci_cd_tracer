@@ -1,0 +1,20 @@
+# adapted from https://github.com/actions-rs/meta/blob/master/recipes/quickstart.md
+
+on: [push, pull_request, workflow_dispatch]
+
+name: Continuous integration
+
+# The Rust toolchain used by each action is determined by `rust-toolchain.toml`
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    steps: 
+      - name: build
+        run: |
+          cargo build
+        
+      - name: test
+        run: |
+          cargo test
